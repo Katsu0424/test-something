@@ -1,6 +1,8 @@
 name: ci-test
 on:
   workflow_dispatch:
+env:
+  GH_TOKEN: ${{ github.token }}
 jobs:
   test-project:
     runs-on: ubuntu-latest
@@ -8,9 +10,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: create-label
+        run: |
+          if ! gh label list | grep -q "^release\s"; then
+            gh label create release --color FF0000 --description "Release用のラベル"
+          fi
+
       - name: create-pr
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           echo "Hello, world!"
           gh pr create \
