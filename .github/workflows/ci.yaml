@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 env:
   GH_TOKEN: ${{ github.token }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   test-project:
     runs-on: ubuntu-latest
