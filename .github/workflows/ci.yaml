@@ -16,11 +16,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: create-label
+      - name: create-release
         run: |
-          if ! gh label list | grep -q "^release\s"; then
-            gh label create release --color FF0000 --description "Release用のラベル"
-          fi
+          gh release create v1.0.0 --title "リリース v1.0.0" --notes "リリース内容の説明"
 
       - name: create-pr
         run: |
@@ -29,5 +27,4 @@ jobs:
             --title "リリース用PR" \
             --body "このPRはリリースに向けた変更を含んでいます。" \
             --base main \
-            --head feature-branch \
-            --label release
+            --head feature-branch
